@@ -9,6 +9,36 @@ generator client {
 }
 
 datasource db {
-  provider = "postgresql"
+  provider = "mysql"
   url      = env("DATABASE_URL")
+}
+
+model Ideas {
+  id          Int      @id @default(autoincrement())
+  name        String
+  cover       String
+  description String?
+  tags        Tags[]
+  photos      Photos[]
+
+  @@map("ideas")
+}
+
+model Tags {
+  id      Int    @id @default(autoincrement())
+  name    String
+  ideasId Int
+  ideas   Ideas  @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+
+  @@map("tags")
+}
+
+model Photos {
+  id      Int     @id @default(autoincrement())
+  name    String?
+  img     String
+  ideasId Int
+  ideas   Ideas   @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+
+  @@map("photos")
 }
