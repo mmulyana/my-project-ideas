@@ -9,7 +9,7 @@ export default function Navbar() {
           My Project Ideas
         </Link>
         <Link
-          href='/new'
+          href='/create'
           className='bg-blue-500 text-gray-900 pl-2 pr-4 py-1.5 rounded-lg flex gap-1 items-center text-sm'
         >
           <PlusIcon className='w-5 h-5 font-medium' />
