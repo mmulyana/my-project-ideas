@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 export default function Card() {
   return (
-    <div className='w-full h-fit rounded-md relative p-2 bg-[#1F1F1F]'>
+    <div className='w-full h-fit rounded-xl relative p-2 bg-[#1F1F1F] hover:bg-[#242424] border border-transparent hover:border-blue-900'>
       <div className='w-full h-40 rounded-md bg-[#141414]'></div>
       <div className='mt-2 px-2.5 pb-4'>
         <Link href='#' className='text-white'>
