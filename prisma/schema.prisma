@@ -14,21 +14,30 @@ datasource db {
 }
 
 model Ideas {
-  id          Int      @id @default(autoincrement())
+  id          Int         @id @default(autoincrement())
   name        String
   cover       String
   description String?
-  tags        Tags[]
   photos      Photos[]
+  tags        IdeasTags[]
 
   @@map("ideas")
 }
 
-model Tags {
-  id      Int    @id @default(autoincrement())
-  name    String
+model IdeasTags {
+  id      Int   @id @default(autoincrement())
+  tagId   Int
+  tags    Tag   @relation(fields: [tagId], references: [id], onDelete: NoAction, onUpdate: Cascade)
   ideasId Int
-  ideas   Ideas  @relation(fields: [id], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  ideas   Ideas @relation(fields: [ideasId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+
+  @@map("ideasTags")
+}
+
+model Tag {
+  id        Int         @id @default(autoincrement())
+  name      String
+  IdeasTags IdeasTags[]
 
   @@map("tags")
 }
