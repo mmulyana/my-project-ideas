@@ -1,26 +1,26 @@
 import type { Ideas } from '@prisma/client'
+import Image from 'next/image'
 import Link from 'next/link'
 
-export default function Card() {
+type Props = {
+  data: Ideas
+}
+export default function Card({ data }: Props) {
   return (
     <div className='w-full h-fit rounded-xl relative p-2 bg-[#1F1F1F] hover:bg-[#242424] border border-transparent hover:border-blue-900'>
-      <div className='w-full h-40 rounded-md bg-[#141414]'></div>
+      <Image
+        src={data.cover}
+        alt={data.name}
+        width={200}
+        height={160}
+        className='w-full h-40 rounded-md '
+      />
       <div className='mt-2 px-2.5 pb-4'>
-        <Link href='#' className='text-white'>
-          Title
+        <Link href={'/' + data.id} className='text-white'>
+          {data.name}
         </Link>
         <div className='w-full h-10 overflow-hidden'>
-          <p className='text-sm text-white/20'>
-            Lorem ipsum dolor sit amet consectetur adipisicing elit. Ratione
-            vero reiciendis, fugit placeat suscipit illum optio quod numquam
-            ipsam! Iusto rem facilis alias explicabo quaerat tempora. Libero
-            consectetur hic veniam.
-          </p>
-        </div>
-        <div className='flex gap-2 flex-wrap mt-2'>
-          <span className='text-sm px-3 py-0.5 rounded-md border border-blue-500/20 bg-blue-950 text-blue-400'>
-            Web
-          </span>
+          <p className='text-sm text-white/20'>{data.description}</p>
         </div>
       </div>
     </div>
