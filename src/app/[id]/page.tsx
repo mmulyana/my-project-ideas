@@ -13,7 +13,7 @@ export default async function Page({ params }: Props) {
     },
   })
   return (
-    <div className='pt-5'>
+    <div className='pt-5 pb-10'>
       <div className='max-w-sm flex flex-col gap-4 mx-auto'>
         <img
           src={idea?.cover}
@@ -31,15 +31,15 @@ export default async function Page({ params }: Props) {
         <div className='grid grid-cols-2 gap-2'>
           <Link
             href={`/${params.id}/edit`}
-            className='py-2.5 w-full text-white rounded-lg bg-blue-600 hover:bg-blue-700'
+            className='py-2.5 w-full text-red-400 rounded-lg bg-red-950 hover:bg-red-900 text-sm text-center'
           >
-            Edit
+            Delete
           </Link>
           <Link
             href={`/${params.id}/edit`}
-            className='py-2.5 w-full text-red-400 rounded-lg bg-red-900 hover:bg-red-800'
+            className='py-2.5 w-full text-white rounded-lg bg-blue-500 hover:bg-blue-700 text-sm text-center'
           >
-            Delete
+            Edit
           </Link>
         </div>
       </div>
