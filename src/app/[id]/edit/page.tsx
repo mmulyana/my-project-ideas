@@ -1,6 +1,5 @@
 import { db } from '_/lib/db'
 import Form from './form'
-import { Suspense } from 'react'
 import type { Ideas } from '@prisma/client'
 
 type Props = {

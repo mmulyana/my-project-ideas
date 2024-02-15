@@ -8,7 +8,7 @@ type Props = {
 }
 export default function Form({ data }: Props) {
   const inputPhotoRef = useRef<HTMLInputElement>(null)
-  const [imagePreview, setImagePreview] = useState<string>('')
+  const [imagePreview, setImagePreview] = useState<string>(data.cover)
 
   async function handleUpload() {
     const uploadedFile = inputPhotoRef.current?.files?.[0]
@@ -21,7 +21,7 @@ export default function Form({ data }: Props) {
   }
 
   return (
-    <div className='pt-5'>
+    <div className='pt-5 pb-10'>
       <form className='max-w-sm flex flex-col gap-4 mx-auto'>
         <div className='w-full'>
           <label
@@ -83,15 +83,16 @@ export default function Form({ data }: Props) {
         </div>
         <div className='w-full'>
           <label
-            htmlFor='first_name'
+            htmlFor='name'
             className='block mb-2 text-sm font-medium text-white'
           >
             Name
           </label>
           <input
             type='text'
-            id='first_name'
+            id='name'
             autoFocus
+            defaultValue={data.name}
             className='border text-sm rounded-lg block w-full p-2.5 bg-[#2b2b2b] border-transparent placeholder-gray-400 text-white focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500'
           />
         </div>
@@ -106,13 +107,15 @@ export default function Form({ data }: Props) {
             id='description'
             rows={4}
             className='block p-2.5 w-full text-sm rounded-lg border border-transparent bg-[#2b2b2b] placeholder-gray-400 text-white focus:ring-4 focus:ring-blue-500/20 focus:border-blue-500'
-          ></textarea>
+          >
+            {data.description}
+          </textarea>
         </div>
         <button
           type='submit'
           className='py-2.5 w-full text-white rounded-lg bg-blue-600 hover:bg-blue-700 mt-1.5'
         >
-          Save
+          Update
         </button>
       </form>
     </div>
