@@ -1,6 +1,8 @@
 'use server'
 
 import { uploadImage } from '_/lib/cloudinary'
+import { db } from '_/lib/db'
+import { extractErrorAction } from '_/utils/error'
 import { revalidatePath } from 'next/cache'
 import { redirect } from 'next/navigation'
 import { z } from 'zod'
@@ -12,7 +14,7 @@ const ACCEPTED_IMAGE_TYPES = [
   'image/webp',
 ]
 
-const Schema = z.object({
+const createSchema = z.object({
   name: z.string().min(1),
   description: z.string().optional(),
   cover: z
@@ -35,22 +37,16 @@ export async function createIdea(
   formState: FormState,
   formData: FormData
 ): Promise<FormState> {
-  const schema = z.object({
-    title: z.string().nonempty({ message: 'Title is required' }),
-    content: z.string().nonempty({ message: 'Content is required' }),
-    cover: z.string().optional(),
-  })
-
-  const result = schema.safeParse({
-    title: formData.get('title'),
-    content: formData.get('content'),
+  const result = createSchema.safeParse({
+    name: formData.get('name'),
+    description: formData.get('description'),
     cover: formData.get('cover'),
   })
 
   if (!result.success) {
     return {
       errors: result.error.flatten().fieldErrors,
-    }
+    } as FormState
   }
 
   try {
@@ -61,15 +57,28 @@ export async function createIdea(
     const url = await uploadImage(buffer, {
       tags: ['ideas'],
     })
+    console.log(url)
 
     if (!url) {
       return {
         errors: {
           title: ['cover'],
+          content: ['upload failed'],
         },
       }
     }
-  } catch (error) {}
+
+    await db.ideas.create({
+      data: {
+        name: result.data.name,
+        description: result.data.description,
+        cover: url,
+      },
+    })
+  } catch (error) {
+    console.log(error)
+    extractErrorAction(error)
+  }
 
   revalidatePath('/')
   redirect('/')
