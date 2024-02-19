@@ -13,7 +13,7 @@ export default function Card({ data }: Props) {
         alt={data.name}
         width={200}
         height={160}
-        className='w-full h-40 rounded-md '
+        className='w-full h-40 rounded-md object-cover object-left-top'
       />
       <div className='mt-2 px-2.5 pb-4'>
         <Link href={'/' + data.id} className='text-white'>
