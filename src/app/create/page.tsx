@@ -129,7 +129,7 @@ function Submit() {
     <button
       disabled={status.pending}
       type='submit'
-      className='py-2.5 w-full text-white rounded-lg bg-blue-600 hover:bg-blue-700 mt-1.5'
+      className='py-2.5 w-full text-white rounded-lg bg-blue-600 hover:bg-blue-700 mt-1.5 flex gap-1 items-center justify-center'
     >
       {status.pending ? (
         <>
