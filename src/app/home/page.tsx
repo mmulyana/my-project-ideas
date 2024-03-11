@@ -1,6 +1,8 @@
 import Card from '_/components/card'
 import { db } from '_/lib/db'
 
+export const dynamic = 'force-dynamic'
+export const revalidate = 5
 export default async function Page() {
   const ideas = await db.ideas.findMany({
     orderBy: {
